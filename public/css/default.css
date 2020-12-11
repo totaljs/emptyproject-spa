@@ -1,0 +1,20 @@
+/*auto*/
+
+html,body { padding: 0; margin: 0; overflow: hidden; }
+
+header > nav { float: right; }
+header > nav button { outline: 0; background: linear-gradient(#FFFFFF,#F8F8F8); border: 1px solid #E0E0E0; border-left: 0; font-size: 11px; height: 24px; padding: 0 8px; margin: 0; color: #000000; min-width: 80px; text-align: center; vertical-align: top; background-color: #FFFFFF; float: left; }
+header > nav button i { margin-right: 5px; }
+header > nav button .fa-plus-circle, header button .fa-check-circle { color: #68B25B; }
+header > nav button:first-child { border-left: 1px solid #E0E0E0; border-top-left-radius: 2px; border-bottom-left-radius: 2px; }
+header > nav button:last-child { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
+header > nav button:hover { border-color: #D0D0D0; }
+header > nav button:active { background: #E9E9E9; }
+header > nav button:disabled { color: silver; cursor: not-allowed; border-color: #E0E0E0 !important; background: linear-gradient(#F8F8F8,#F0F0F0); }
+header > nav button:disabled i { color: silver !important; }
+
+.ui-dark header nav > button { background: linear-gradient(#323232,#353535); border-color: #404040; color: #FFFFFF; }
+.ui-dark header nav > button:hover { border-color: #505050; }
+.ui-dark header nav > button:active { background: #303030; }
+.ui-dark header nav > button:disabled { color: #505050; border-color: #353535 !important; background: linear-gradient(#202020,#252525); }
+.ui-dark header nav > button:disabled i { color: #505050 !important; }

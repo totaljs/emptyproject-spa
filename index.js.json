@@ -1,0 +1,38 @@
+{
+	"pid": 43158,
+	"port": 8000,
+	"ip": "0.0.0.0",
+	"stats": [
+		{
+			"id": null,
+			"version": {
+				"node": "v15.0.1",
+				"total": "4.0.0",
+				"app": "1.0.0"
+			},
+			"pid": 43158,
+			"thread": "",
+			"mode": "debug",
+			"overload": 0,
+			"date": "2020-12-11T10:46:21.393Z",
+			"memory": 7.78,
+			"rm": 8,
+			"fm": 24,
+			"wm": 0,
+			"em": 0,
+			"mm": 0,
+			"om": 80,
+			"dbrm": 0,
+			"dbwm": 0,
+			"usage": 0,
+			"requests": 175,
+			"pending": 0,
+			"external": 0,
+			"errors": 1,
+			"timeouts": 0,
+			"online": 0,
+			"uptime": 39,
+			"lasterror": "2020-12-11T10:05:44.747Z default - Error: View \"index\": json(user.json(), 'userdata') - Line: 11 - Cannot read property 'json' of null\n    at ControllerProto.$viewrender (/Volumes/Development/node_modules/total4/index.js:12839:9)\n    at ControllerProto.view (/Volumes/Development/node_modules/total4/index.js:12767:14)\n    at Controller.<anonymous> (/Volumes/Development/node_modules/total4/index.js:3187:19)\n    at IncomingMessage.PROTO.$total_execute2 (/Volumes/Development/node_modules/total4/index.js:14622:31)\n    at IncomingMessage.PROTO.$total_execute (/Volumes/Development/node_modules/total4/index.js:14588:9)\n    at IncomingMessage.PROTO.$total_prepare (/Volumes/Development/node_modules/total4/index.js:14884:9)\n    at IncomingMessage.PROTO.$total_end (/Volumes/Development/node_modules/total4/index.js:14516:9)\n    at Framework.F.$requestcontinue (/Volumes/Development/node_modules/total4/index.js:7292:9)\n    at Server.F.listener (/Volumes/Development/node_modules/total4/index.js:7048:5)\n    at Server.emit (node:events:327:20)"
+		}
+	]
+}

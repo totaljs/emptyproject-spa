@@ -1,0 +1,104 @@
+@{layout('')}
+@{title(config.name)}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="robots" content="all,follow" />
+	<link href="//cdn.componentator.com/spa.min@18.css" rel="stylesheet" />
+	<script src="//cdn.componentator.com/spa.min@18.js"></script>
+	@{import('meta', 'head', 'default.js + ui.js', 'default.css + ui.css', 'favicon.ico')}
+</head>
+<body data---="exec" class="invisible">
+
+	<div data---="LAZY directory"></div>
+	<div data---="LAZY menu"></div>
+	<div data---="LAZY approve"></div>
+	<div data---="LAZY datepicker"></div>
+	<div data---="LAZY colorpicket"></div>
+	<div data---="LAZY faicons"></div>
+
+	<div data---="loading" class="hidden"></div>
+
+	<div data---="layout2__null__parent:window" class="invisible">
+		<div data-type="left" data-size="220,220,200,0" data-scrollbar="selector:main;margin:76">
+			<header>
+				<a href="/" class="logo">Your Logo Here</a>
+			</header>
+			<main data---="selected__common.page__selector:li;">
+				<br />
+
+				<ul class="nav">
+					<li class="exec" data-if="dashboard" data-exec="common/page"><i class="fa fa-dashboard"></i>Dashboard</li>
+					<li class="exec" data-if="products" data-exec="common/page"><i class="fa fa-box"></i>Products</li>
+				</ul>
+
+				<!--
+				<div class="caption">Maintenance</div>
+				<ul class="nav">
+					<li><span>34</span><i class="fa fa-chevron-right"></i>Duplicates</li>
+					<li><i class="fa fa-chevron-right"></i>Broken links</li>
+					<li><i class="fa fa-chevron-right"></i>Tags</li>
+					<li><i class="fa fa-chevron-right"></i>Trash</li>
+				</ul>
+				-->
+
+			</main>
+			<footer data---="selected__common.page__selector:span">
+				<span><i class="fa fa-navicon"></i></span>
+				<span><i class="fa fa-cloud-download"></i></span>
+				<span class="exec" data-exec="common/darkmode"><i class="fa fa-adjust"></i></span>
+				<span class="exec" data-if="settings" data-exec="common/page"><i class="fa fa-cog"></i></span>
+			</footer>
+		</div>
+		<div data-type="main">
+			<div data---="part__common.page__if:dashboard;url:/parts/dashboard.html;reload:dashboard/reloads" class="hidden invisible"></div>
+			<div data---="part__common.page__if:products;url:/parts/products.html;reload:products/reloads" class="hidden invisible"></div>
+			<div data---="part__common.page__if:settings;url:/parts/settings.html;reload:settings/reloads" class="hidden invisible"></div>
+		</div>
+	</div>
+
+	<script>
+
+		var common = {};
+
+		CACHEPATH('common.page', '1 week');
+		CACHEPATH('common.darkmode', '1 week');
+
+		common.page = 'dashboard';
+
+		ON('ready', function() {
+			var body = $('body');
+			common.darkmode && body.aclass('ui-dark');
+			body.rclass('invisible');
+		});
+
+		ON('@flag showloading', function() {
+			SETTER('loading/show');
+		});
+
+		ON('@flag hideloading', function() {
+			SETTER('loading/hide', 1000);
+		});
+
+		PLUGIN('common', function(exports) {
+
+			exports.page = function(el) {
+				var id = typeof(el) === 'string' ? el : el.attrd('if');
+				SET('?.page', id);
+			};
+
+			exports.darkmode = function() {
+				var el = $('body').tclass('ui-dark');
+				SET('common.darkmode', el.hclass('ui-dark'));
+			};
+
+		});
+	</script>
+
+</body>
+</html>
