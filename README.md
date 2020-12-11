@@ -1,0 +1,2 @@
+# emptyproject-spa
+SPA template
