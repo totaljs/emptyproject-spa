@@ -4,6 +4,8 @@
 - [Join Total.js Telegram](https://t.me/totaljs)
 - [Support](https://www.totaljs.com/support/)
 
+__Instructions__:
+
 - install latest version of Total.js from NPM `$ npm install total4`
 - download example
 - run `$ node index.js`
