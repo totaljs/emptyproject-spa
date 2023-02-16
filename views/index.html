@@ -9,57 +9,78 @@
 	<meta name="format-detection" content="telephone=no" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="robots" content="all,follow" />
-	<link href="//cdn.componentator.com/spa.min@18.css" rel="stylesheet" />
-	<script src="//cdn.componentator.com/spa.min@18.js"></script>
-	@{import('meta', 'head', 'default.js + ui.js', 'default.css + ui.css', 'favicon.ico')}
+	<link href="//cdn.componentator.com/spa.min@19.css" rel="stylesheet" />
+	<script src="//cdn.componentator.com/spa.min@19.js"></script>
+	<script src="@{REPO.ui}"></script>
+	@{import('meta', 'head', 'default.js', 'default.css', 'favicon.ico')}
 </head>
-<body data---="exec" class="invisible">
+<body class="invisible">
 
-	<div data---="LAZY directory"></div>
-	<div data---="LAZY menu"></div>
-	<div data---="LAZY approve"></div>
-	<div data---="LAZY datepicker"></div>
-	<div data---="LAZY colorpicker"></div>
-	<div data---="LAZY faicons"></div>
+	<ui-component name="exec"></ui-component>
+	<ui-component name="errorhandler"></ui-component>
+	<ui-component name="loading" class="hidden"></ui-component>
 
-	<div data---="loading" class="hidden"></div>
+	<ui-component name="LAZY directory"></ui-component>
+	<ui-component name="LAZY menu"></ui-component>
+	<ui-component name="LAZY approve"></ui-component>
+	<ui-component name="LAZY datepicker"></ui-component>
+	<ui-component name="LAZY colorpicker"></ui-component>
+	<ui-component name="LAZY faicons"></ui-component>
+	<ui-component name="LAZY message"></ui-component>
 
-	<div data---="layout2__null__parent:window" class="invisible">
-		<div data-type="left" data-size="220,220,200,0" data-scrollbar="selector:main;margin:76">
+	<ui-component name="layout" path="common.layout" config="parent:window" class="invisible">
+
+		<script type="text/plain">
+			{
+				left: { size: 220 },
+				main: {},
+				sm: {
+					left: { show: false },
+					main: { size: '100%' }
+				},
+				detail: {
+					left: { show: true, size: '100%' },
+					main: { show: false },
+				}
+			}
+		</script>
+
+		<section data-type="main">
+			<ui-component name="page" path="common.page" config="if:pagedashboard;url:/pages/dashboard.html;reload:?/reload" class="hidden invisible"></ui-component>
+			<ui-component name="page" path="common.page" config="if:pageproducts;url:/pages/products.html;reload:?/reload" class="hidden invisible"></ui-component>
+			<ui-component name="page" path="common.page" config="if:pagesettings;url:/pages/settings.html;reload:?/reload" class="hidden invisible"></ui-component>
+		</section>
+
+		<section data-type="left">
 			<header>
-				<a href="/" class="logo">Your Logo Here</a>
+				<a href="/" class="logo">@(Your Logo Here)</a>
 			</header>
-			<main data---="selected__common.page__selector:li;">
-				<br />
 
-				<ul class="nav">
-					<li class="exec" data-if="dashboard" data-exec="common/page"><i class="fa fa-dashboard"></i>Dashboard</li>
-					<li class="exec" data-if="products" data-exec="common/page"><i class="fa fa-box"></i>Products</li>
-				</ul>
-
-				<!--
-				<div class="caption">Maintenance</div>
-				<ul class="nav">
-					<li><span>34</span><i class="fa fa-chevron-right"></i>Duplicates</li>
-					<li><i class="fa fa-chevron-right"></i>Broken links</li>
-					<li><i class="fa fa-chevron-right"></i>Tags</li>
-					<li><i class="fa fa-chevron-right"></i>Trash</li>
-				</ul>
-				-->
-
+			<main>
+				<ui-component name="selected" path="common.page" config="selector:div">
+					<div class="nav nmb">
+						<nav>
+							<div class="exec" data-if="pagedashboard" data-exec="common/page"><i class="ti ti-dashboard"></i>@(Dashboard)</div>
+							<div class="exec" data-if="pageproducts" data-exec="common/page"><i class="ti ti-box"></i>@(Products)</div>
+						</nav>
+					</div>
+				</ui-component>
 			</main>
-			<footer data---="selected__common.page__selector:span">
-				<span><i class="fa fa-navicon"></i></span>
-				<span><i class="fa fa-cloud-download"></i></span>
-				<span class="exec" data-exec="common/darkmode"><i class="fa fa-adjust"></i></span>
-				<span class="exec" data-if="settings" data-exec="common/page"><i class="fa fa-cog"></i></span>
+
+			<footer>
+				<ui-component name="selected" path="common.page" config="selector:span">
+					<span><i class="ti ti-navicon"></i></span>
+					<span><i class="ti ti-cloud-download"></i></span>
+					<span class="exec" data-exec="common/darkmode"><i class="ti ti-adjust"></i></span>
+					<span class="exec" data-if="pagesettings" data-exec="common/page"><i class="ti ti-cog"></i></span>
+				</ui-component>
 			</footer>
-		</div>
-		<div data-type="main">
-			<div data---="part__common.page__if:dashboard;url:/parts/dashboard.html;reload:dashboard/reload" class="hidden invisible"></div>
-			<div data---="part__common.page__if:products;url:/parts/products.html;reload:products/reload" class="hidden invisible"></div>
-			<div data---="part__common.page__if:settings;url:/parts/settings.html;reload:settings/reload" class="hidden invisible"></div>
-		</div>
+		</section>
+
+	</ui-component>
+
+	<div class="mainmenu exec" data-exec="common/mainmenu">
+		<i class="ti ti-bars"></i>
 	</div>
 
 	<script>
@@ -69,7 +90,8 @@
 		CACHEPATH('common.page', '1 week');
 		CACHEPATH('common.darkmode', '1 week');
 
-		common.page = 'dashboard';
+		common.page = 'pagedashboard';
+		common.layout = '';
 
 		ON('ready', function() {
 			var body = $('body');
@@ -89,12 +111,18 @@
 
 			exports.page = function(el) {
 				var id = typeof(el) === 'string' ? el : el.attrd('if');
-				SET('?.page', id);
+				exports.set('page', id);
+				exports.set('layout', '');
 			};
 
 			exports.darkmode = function() {
 				var el = $('body').tclass('ui-dark');
-				SET('common.darkmode', el.hclass('ui-dark'));
+				exports.set('darkmode', el.hclass('ui-dark'));
+			};
+
+			exports.mainmenu = function() {
+				var model = exports.model;
+				exports.set('layout', model.layout === 'detail' ? '' : 'detail');
 			};
 
 		});
